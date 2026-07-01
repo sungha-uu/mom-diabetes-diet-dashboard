@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>어머니 당뇨 식단 대시보드</title>
+    <meta name="description" content="좋아하는 한국 음식을 더 건강하게 바꿔 먹기 위한 보호자용 당뇨 식단 검색 대시보드">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <div class="wrap hero">
+        <p class="kicker">P09 식단 안내 대시보드</p>
+        <h1>좋아하는 음식을 조금 더 안전한 한 끼로 바꾸기</h1>
+        <p class="lead">칼국수, 수제비, 김치전, 부추전처럼 실제로 드시고 싶어 하는 음식을 중심으로 분량, 조합, 조리법을 쉽게 찾아보는 보호자용 안내입니다.</p>
+        <div class="notice">
+          <strong>범위</strong>
+          <span>이 페이지는 인슐린 투여량, 운동량, 혈당 추세를 관리하는 의료 대시보드가 아닙니다. 약물 조정과 치료 결정은 반드시 의료진과 상의해야 합니다.</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="toolbar" aria-label="음식 검색">
+        <input id="search" class="search" type="search" placeholder="음식명 검색: 칼국수, 수제비, 김치전, 두부부침..." autocomplete="off">
+        <div class="chips" aria-label="분류 필터">
+          <button type="button" data-filter="all" aria-pressed="true">전체</button>
+          <button type="button" data-filter="good" aria-pressed="false">자주 가능</button>
+          <button type="button" data-filter="limit" aria-pressed="false">조절해서 먹기</button>
+          <button type="button" data-filter="avoid" aria-pressed="false">가급적 피함</button>
+        </div>
+      </section>
+
+      <div class="layout">
+        <section>
+          <h2 class="section-title">음식별 안내</h2>
+          <div id="food-list" class="grid" aria-live="polite"></div>
+        </section>
+
+        <aside class="panel">
+          <div class="panel-grid">
+            <section>
+              <h2>한 끼 원칙</h2>
+              <div class="rule">접시의 절반은 비전분 채소, 1/4은 단백질, 1/4은 밥/면/전 같은 탄수화물 음식으로 생각합니다.</div>
+            </section>
+            <section>
+              <h2>좋아하는 음식 조정법</h2>
+              <ul>
+                <li>면, 밥, 전, 떡을 한 끼에 겹치지 않습니다.</li>
+                <li>밀가루 반죽은 얇게, 채소와 단백질은 많이 넣습니다.</li>
+                <li>국물은 적게 먹고 간은 싱겁게 맞춥니다.</li>
+                <li>설탕 음료와 주스는 평소 음료에서 제외합니다.</li>
+              </ul>
+            </section>
+            <section>
+              <h2>주의</h2>
+              <p>식사량을 갑자기 줄이거나 활동량이 달라지면 인슐린 사용자는 저혈당 위험이 생길 수 있습니다. 저혈당 대응 기준은 주치의에게 확인해야 합니다.</p>
+            </section>
+          </div>
+          <p class="sources">근거: <a href="https://diabetes.org/food-nutrition/eating-healthy">ADA 식사 안내</a>, <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC Diabetes Meal Planning</a></p>
+        </aside>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

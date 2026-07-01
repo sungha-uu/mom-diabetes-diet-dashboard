@@ -1,0 +1,62 @@
+﻿[
+  {
+    "name": "칼국수",
+    "aliases": ["바지락칼국수", "닭칼국수"],
+    "category": "면/밀가루 주식",
+    "glucoseImpact": "high",
+    "recommendation": "조절 가능",
+    "portionGuide": "면 1/2-2/3인분부터 시작, 밥/전과 중복 금지",
+    "risks": ["정제 밀가루", "국물 나트륨", "탄수화물 과다"],
+    "saferTips": ["채소와 단백질 추가", "국물 적게", "식후 혈당 기록"]
+  },
+  {
+    "name": "수제비",
+    "aliases": ["들깨수제비", "감자수제비"],
+    "category": "밀가루 주식",
+    "glucoseImpact": "high",
+    "recommendation": "조절 가능",
+    "portionGuide": "반죽 양 평소의 절반, 얇고 작게",
+    "risks": ["밀가루 반죽", "감자 추가 시 탄수화물 증가", "국물 나트륨"],
+    "saferTips": ["두부/계란 추가", "애호박/버섯/배추 추가", "밥과 같이 먹지 않기"]
+  },
+  {
+    "name": "김치전",
+    "aliases": ["김치부침개", "찌짐"],
+    "category": "전/부침",
+    "glucoseImpact": "medium-high",
+    "recommendation": "조절 가능",
+    "portionGuide": "작은 크기 1-2장, 한 끼 탄수화물로 계산",
+    "risks": ["밀가루", "기름", "김치 나트륨"],
+    "saferTips": ["채소 비율 높이기", "반죽 얇게", "기름 최소화"]
+  },
+  {
+    "name": "부추전",
+    "aliases": ["정구지전", "찌짐"],
+    "category": "전/부침",
+    "glucoseImpact": "medium-high",
+    "recommendation": "조절 가능",
+    "portionGuide": "작은 크기 1-2장, 밥/면과 중복 금지",
+    "risks": ["밀가루", "기름", "초간장 나트륨"],
+    "saferTips": ["해물/계란 추가", "반죽 얇게", "초간장 적게"]
+  },
+  {
+    "name": "두부부침",
+    "aliases": ["부친 두부"],
+    "category": "단백질 반찬",
+    "glucoseImpact": "low-medium",
+    "recommendation": "자주 가능",
+    "portionGuide": "전분/밀가루 없이 굽고 양념장 설탕 제외",
+    "risks": ["기름 과다", "양념장 나트륨", "전분가루 사용"],
+    "saferTips": ["기름 최소화", "쌈채소와 함께", "설탕 없는 양념장"]
+  },
+  {
+    "name": "설탕 음료",
+    "aliases": ["콜라", "사이다", "과일주스", "달달한 커피"],
+    "category": "음료",
+    "glucoseImpact": "very-high",
+    "recommendation": "가급적 피함",
+    "portionGuide": "평상시 음료로 사용하지 않음. 저혈당 대응은 의료진 지침에 따라 별도 관리",
+    "risks": ["빠른 혈당 상승", "액상 당류"],
+    "saferTips": ["물", "무가당 차", "제로칼로리 음료"]
+  }
+]
