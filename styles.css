@@ -194,6 +194,22 @@ input {
   line-height: 1.08;
 }
 
+.category-block {
+  margin-bottom: 26px;
+}
+
+.category-title {
+  display: inline-flex;
+  margin: 0 0 12px;
+  padding: 8px 14px;
+  border: 3px solid #2f3a2a;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 27px;
+  font-weight: 1000;
+}
+
 .guide {
   margin: 0 0 12px;
   font-size: 25px;
@@ -226,6 +242,27 @@ input {
 .card-body,
 .simple-card {
   padding: 16px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 6px 14px;
+  border: 3px solid #6a6f62;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 21px;
+  font-weight: 1000;
 }
 
 .recipe-card h2,
