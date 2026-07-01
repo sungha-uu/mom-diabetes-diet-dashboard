@@ -230,6 +230,12 @@ const viewTitles = {
 };
 
 let currentView = "recipes";
+const searchableViews = ["recipes", "eatingOut", "ingredients"];
+const searchState = {
+  recipes: { query: "", matchIndex: -1 },
+  eatingOut: { query: "", matchIndex: -1 },
+  ingredients: { query: "", matchIndex: -1 }
+};
 const scrollPositions = {
   recipes: 0,
   eatingOut: 0,
@@ -254,8 +260,36 @@ function cardStatus(item) {
   return `<span class="badge ${item.status}">${statusLabel(item.status)}</span>`;
 }
 
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function cleanNote(note) {
   return note.replace(/^(안심에 가깝습니다\.|안심\.|주의\.|위험\. 위험\.|위험\.)\s*/, "");
+}
+
+function normalizeSearchText(value) {
+  return String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function recipeSearchText(recipe) {
+  return [
+    recipe.title,
+    recipe.category,
+    recipe.why,
+    recipe.source,
+    ...recipe.ingredients,
+    ...recipe.steps,
+    ...recipe.tags
+  ].join(" ");
+}
+
+function simpleSearchText(item) {
+  return [item.category, item.name, item.note, statusLabel(item.status)].join(" ");
 }
 
 function groupByCategory(items) {
@@ -281,7 +315,7 @@ function renderGrouped(items, renderer) {
 
 function recipeCard(recipe) {
   return `
-    <article class="recipe-card ${recipe.status}">
+    <article class="recipe-card ${recipe.status}" data-search="${escapeAttr(normalizeSearchText(recipeSearchText(recipe)))}" tabindex="-1">
       <img src="${recipe.image}" alt="${recipe.title} 사진" loading="lazy">
       <div class="card-body">
         <div class="card-tags">${cardStatus(recipe)}<span class="category-pill">${recipe.category}</span></div>
@@ -302,13 +336,52 @@ function recipeCard(recipe) {
 
 function simpleCard(item) {
   return `
-    <article class="simple-card ${item.status}">
+    <article class="simple-card ${item.status}" data-search="${escapeAttr(normalizeSearchText(simpleSearchText(item)))}" tabindex="-1">
       <div class="card-tags">${cardStatus(item)}<span class="category-pill">${item.category}</span></div>
       <h2>${item.name}</h2>
       <p>${cleanNote(item.note)}</p>
     </article>
   `;
 }
+
+const hypoFoods = [
+  {
+    category: "가장 먼저",
+    name: "포도당정 3-4개",
+    status: "safe",
+    note: "용량을 맞추기 쉬워서 가장 준비해두기 좋습니다. 제품 포장에 적힌 탄수화물 양을 확인하세요."
+  },
+  {
+    category: "마실 것",
+    name: "과일주스 120ml",
+    status: "safe",
+    note: "작은 컵 반 컵 정도입니다. 저당 주스가 아니라 일반 주스여야 합니다. 신장질환이 있으면 오렌지주스는 병원에 확인하세요."
+  },
+  {
+    category: "마실 것",
+    name: "일반 콜라 또는 사이다 120ml",
+    status: "safe",
+    note: "제로 콜라가 아니라 설탕이 든 일반 탄산음료입니다. 저혈당 응급 때만 소량 사용합니다."
+  },
+  {
+    category: "집에 있을 때",
+    name: "꿀 또는 설탕 1큰술",
+    status: "safe",
+    note: "대략 15ml 한 큰술입니다. 삼킬 수 있을 때만 사용하고, 평소 간식처럼 먹지 않습니다."
+  },
+  {
+    category: "가방에 넣기",
+    name: "일반 사탕 3-4개",
+    status: "caution",
+    note: "무설탕 사탕은 효과가 없습니다. 제품마다 당 함량이 달라 포장지의 탄수화물 양을 확인하세요."
+  },
+  {
+    category: "피하기",
+    name: "초콜릿, 견과류, 빵 많이 먹기",
+    status: "danger",
+    note: "지방과 단백질이 많으면 흡수가 늦거나, 너무 많이 먹어 혈당이 크게 튈 수 있습니다. 응급 처치는 빠른 당질 15g이 우선입니다."
+  }
+];
 
 const hypoItems = [
   {
@@ -355,8 +428,22 @@ const hypoItems = [
   }
 ];
 
+function renderSearchBar() {
+  if (!searchableViews.includes(currentView)) return "";
+  const state = searchState[currentView];
+  const inputId = `search-${currentView}`;
+  return `
+    <section class="search-panel" aria-label="${viewTitles[currentView]} 검색">
+      <label class="search-label" for="${inputId}">검색</label>
+      <input id="${inputId}" class="search-input" type="search" value="${escapeAttr(state.query)}" placeholder="음식 이름 검색">
+      <output class="search-count" aria-live="polite">0개</output>
+      <button class="search-next" type="button" disabled>다음</button>
+    </section>
+  `;
+}
+
 function render() {
-  let html = `<div class="section-title"><h2>${viewTitles[currentView]}</h2></div>`;
+  let html = renderSearchBar();
 
   if (currentView === "recipes") {
     html += renderGrouped(recipes, recipeCard);
@@ -377,11 +464,93 @@ function render() {
         <p>혈당이 70mg/dL 미만이거나 증상이 있으면 빠른 당질 15g을 먹고 15분 뒤 다시 확인합니다.</p>
       </section>
     `;
+    html += `
+      <section class="hypo-summary safe">
+        <h2>바로 먹을 것</h2>
+        <p>삼킬 수 있을 때만 아래 중 하나를 골라 15g 정도 먹습니다. 15분 뒤 다시 확인합니다.</p>
+      </section>
+    `;
+    html += renderGrouped(hypoFoods, simpleCard);
     html += renderGrouped(hypoItems, simpleCard);
     html += `<p class="source">근거: ADA Low Blood Glucose, CDC/NIDDK 저혈당 15-15 원칙.</p>`;
   }
 
   content.innerHTML = html;
+  attachSearchHandlers();
+}
+
+function currentSearchMatches() {
+  const state = searchState[currentView];
+  const query = normalizeSearchText(state?.query);
+  const cards = Array.from(content.querySelectorAll("[data-search]"));
+  if (!query) return [];
+  return cards.filter(card => card.dataset.search.includes(query));
+}
+
+function updateSearchMatches(advance = false) {
+  if (!searchableViews.includes(currentView)) return;
+
+  const state = searchState[currentView];
+  const query = normalizeSearchText(state.query);
+  const cards = Array.from(content.querySelectorAll("[data-search]"));
+  const count = content.querySelector(".search-count");
+  const next = content.querySelector(".search-next");
+
+  cards.forEach(card => card.classList.remove("search-hit", "search-active"));
+
+  if (!query) {
+    state.matchIndex = -1;
+    count.textContent = "0개";
+    next.disabled = true;
+    return;
+  }
+
+  const matches = currentSearchMatches();
+  count.textContent = `${matches.length}개`;
+  next.disabled = matches.length === 0;
+
+  matches.forEach(card => card.classList.add("search-hit"));
+
+  if (matches.length === 0) {
+    state.matchIndex = -1;
+    return;
+  }
+
+  if (advance) {
+    state.matchIndex = (state.matchIndex + 1) % matches.length;
+    const target = matches[state.matchIndex];
+    target.classList.add("search-active");
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  if (state.matchIndex >= matches.length) state.matchIndex = -1;
+  if (state.matchIndex >= 0) matches[state.matchIndex].classList.add("search-active");
+}
+
+function attachSearchHandlers() {
+  if (!searchableViews.includes(currentView)) return;
+
+  const state = searchState[currentView];
+  const input = content.querySelector(".search-input");
+  const next = content.querySelector(".search-next");
+
+  input.addEventListener("input", () => {
+    state.query = input.value;
+    state.matchIndex = -1;
+    updateSearchMatches(false);
+  });
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      updateSearchMatches(true);
+    }
+  });
+
+  next.addEventListener("click", () => updateSearchMatches(true));
+  updateSearchMatches(false);
 }
 
 function restoreCurrentScroll() {
