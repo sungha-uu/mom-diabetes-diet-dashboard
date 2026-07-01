@@ -225,13 +225,26 @@ const noodleTips = [
 const viewTitles = {
   recipes: "집밥",
   eatingOut: "외식",
-  ingredients: "재료"
+  ingredients: "재료",
+  hypo: "저혈당"
 };
 
 let currentView = "recipes";
+const scrollPositions = {
+  recipes: 0,
+  eatingOut: 0,
+  ingredients: 0,
+  hypo: 0
+};
+let isRestoringScroll = false;
 
 const content = document.querySelector("#content");
 const buttons = document.querySelectorAll("[data-view]");
+
+window.addEventListener("scroll", () => {
+  if (isRestoringScroll) return;
+  scrollPositions[currentView] = window.scrollY;
+}, { passive: true });
 
 function statusLabel(status) {
   return status === "safe" ? "안심" : status === "danger" ? "위험" : "주의";
@@ -297,6 +310,51 @@ function simpleCard(item) {
   `;
 }
 
+const hypoItems = [
+  {
+    category: "먼저 확인",
+    name: "혈당 70mg/dL 미만 또는 저혈당 증상",
+    status: "danger",
+    note: "즉시 빠른 당질 15g을 먹고 15분 뒤 다시 확인합니다. 인슐린 사용자는 지체하지 않는 것이 중요합니다."
+  },
+  {
+    category: "가벼운 증상",
+    name: "식은땀, 손떨림, 배고픔, 가벼운 어지러움",
+    status: "caution",
+    note: "포도당정 3-4개, 사탕 3-4개, 주스 120ml, 일반 콜라 120ml 중 하나. 초콜릿은 지방 때문에 느릴 수 있어 우선순위가 낮습니다."
+  },
+  {
+    category: "중간 증상",
+    name: "심한 어지러움, 두근거림, 말이 어눌함",
+    status: "danger",
+    note: "혼자 버티지 말고 가족에게 알립니다. 빠른 당질 15g을 먹고 15분 뒤에도 낮거나 증상이 남으면 15g을 한 번 더 먹습니다."
+  },
+  {
+    category: "심각한 증상",
+    name: "의식 혼미, 경련, 삼키기 어려움",
+    status: "danger",
+    note: "먹이거나 마시게 하지 마세요. choking 위험이 있습니다. 즉시 119에 연락하고, 처방받은 글루카곤이 있으면 보호자가 사용합니다."
+  },
+  {
+    category: "빠른 당질 15g 예시",
+    name: "가방에 준비할 것",
+    status: "safe",
+    note: "포도당정, 사탕, 작은 주스팩 120ml, 일반 탄산음료 120ml, 꿀 1큰술. 평소 간식이 아니라 저혈당 응급용으로 따로 둡니다."
+  },
+  {
+    category: "회복 후",
+    name: "다음 식사가 1시간 이상 남았을 때",
+    status: "caution",
+    note: "혈당이 회복되면 크래커 몇 조각, 우유/두유 소량, 작은 과일 같은 간단한 간식을 병원 지침에 맞춰 먹어 다시 떨어지는 것을 막습니다."
+  },
+  {
+    category: "주의",
+    name: "과하게 먹지 않기",
+    status: "caution",
+    note: "불안해서 과자나 빵을 많이 먹으면 혈당이 크게 튈 수 있습니다. 15g 먹고 15분 기다리는 원칙을 기본으로 합니다."
+  }
+];
+
 function render() {
   let html = `<div class="section-title"><h2>${viewTitles[currentView]}</h2></div>`;
 
@@ -312,7 +370,30 @@ function render() {
     html += renderGrouped(ingredients, simpleCard);
   }
 
+  if (currentView === "hypo") {
+    html += `
+      <section class="hypo-summary danger">
+        <h2>저혈당은 바로 대처</h2>
+        <p>혈당이 70mg/dL 미만이거나 증상이 있으면 빠른 당질 15g을 먹고 15분 뒤 다시 확인합니다.</p>
+      </section>
+    `;
+    html += renderGrouped(hypoItems, simpleCard);
+    html += `<p class="source">근거: ADA Low Blood Glucose, CDC/NIDDK 저혈당 15-15 원칙.</p>`;
+  }
+
   content.innerHTML = html;
+}
+
+function restoreCurrentScroll() {
+  const y = scrollPositions[currentView] || 0;
+  isRestoringScroll = true;
+  requestAnimationFrame(() => window.scrollTo(0, y));
+  setTimeout(() => window.scrollTo(0, y), 150);
+  setTimeout(() => window.scrollTo(0, y), 500);
+  setTimeout(() => {
+    window.scrollTo(0, y);
+    isRestoringScroll = false;
+  }, 900);
 }
 
 buttons.forEach(button => {
@@ -320,6 +401,7 @@ buttons.forEach(button => {
     currentView = button.dataset.view;
     buttons.forEach(x => x.setAttribute("aria-pressed", String(x === button)));
     render();
+    restoreCurrentScroll();
   });
 });
 
