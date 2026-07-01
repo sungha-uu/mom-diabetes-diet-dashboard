@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>어머니 당뇨 식단</title>
+    <meta name="description" content="큰 글씨로 보는 건강한 당뇨 식단: 집밥, 외식, 재료">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="title-row">
+        <h1>건강한 당뇨 식단</h1>
+      </div>
+      <nav class="tabs" aria-label="메뉴">
+        <button type="button" data-view="recipes" aria-pressed="true">집밥</button>
+        <button type="button" data-view="eatingOut" aria-pressed="false">외식</button>
+        <button type="button" data-view="ingredients" aria-pressed="false">재료</button>
+        <button type="button" data-view="hypo" aria-pressed="false">저혈당</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="content" aria-live="polite"></section>
+    </main>
+
+    <footer>
+      <p>이 페이지는 음식 선택 안내입니다. 인슐린 용량, 약 조정, 치료 결정은 병원에서 확인해야 합니다.</p>
+      <p>참고: 대한당뇨병학회 식품교환표, CDC Plate Method, ADA Diabetes Food Hub 레시피.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
