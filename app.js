@@ -246,11 +246,20 @@ let isRestoringScroll = false;
 
 const content = document.querySelector("#content");
 const buttons = document.querySelectorAll("[data-view]");
+const topbar = document.querySelector(".topbar");
+
+function updateStickyOffset() {
+  document.documentElement.style.setProperty("--topbar-height", `${topbar.offsetHeight}px`);
+  const searchPanel = document.querySelector(".search-panel");
+  document.documentElement.style.setProperty("--search-panel-height", `${searchPanel?.offsetHeight || 0}px`);
+}
 
 window.addEventListener("scroll", () => {
   if (isRestoringScroll) return;
   scrollPositions[currentView] = window.scrollY;
 }, { passive: true });
+
+window.addEventListener("resize", updateStickyOffset);
 
 function statusLabel(status) {
   return status === "safe" ? "안심" : status === "danger" ? "위험" : "주의";
@@ -443,6 +452,7 @@ function renderSearchBar() {
 }
 
 function render() {
+  updateStickyOffset();
   let html = renderSearchBar();
 
   if (currentView === "recipes") {
@@ -477,6 +487,7 @@ function render() {
 
   content.innerHTML = html;
   attachSearchHandlers();
+  updateStickyOffset();
 }
 
 function currentSearchMatches() {
@@ -575,3 +586,4 @@ buttons.forEach(button => {
 });
 
 render();
+updateStickyOffset();
