@@ -42,6 +42,50 @@ const recipes = [
     ingredients: ["오이 1/2개", "상추 5장", "버섯 한 줌(70g)", "브로콜리 1컵(80g)", "두부 1/3모(100g)", "참기름 1/2작은술(2.5ml)", "간장 1작은술(5ml)"],
     steps: ["오이와 상추를 씻어 접시에 담습니다.", "버섯과 브로콜리는 데치거나 기름 없이 굽습니다.", "두부를 곁들입니다.", "간장과 참기름은 아주 조금만 사용합니다."],
     tags: ["채소", "버섯", "두부", "안심"]
+  },
+  {
+    title: "고등어구이 채소 한 접시",
+    category: "주메뉴",
+    status: "safe",
+    image: "assets/recipes/grilled-mackerel-meal.png",
+    why: "생선구이는 외식과 집밥 모두 좋은 단백질 선택입니다. 밥은 작게, 채소는 많이 둡니다.",
+    source: "ADA/CDC 접시법의 단백질 1/4, 비전분 채소 1/2 원칙을 반영했습니다.",
+    ingredients: ["고등어 1토막(100g)", "오이 1/2개", "상추 5장", "버섯 70g", "잡곡밥 1/3공기 선택", "레몬즙 1작은술(5ml)", "식용유 1/2작은술(2.5ml)"],
+    steps: ["고등어는 짜지 않은 것을 고릅니다.", "팬에 기름 1/2작은술만 두르고 굽습니다.", "오이, 상추, 버섯을 먼저 먹습니다.", "밥은 먹는다면 1/3공기만 곁들입니다."],
+    tags: ["고등어", "생선", "주메뉴", "안심"]
+  },
+  {
+    title: "닭가슴살 깻잎쌈",
+    category: "주메뉴",
+    status: "safe",
+    image: "assets/recipes/chicken-perilla-wrap.png",
+    why: "닭가슴살은 담백한 단백질입니다. 깻잎과 상추로 싸면 밥 없이도 든든합니다.",
+    source: "ADA의 lean protein 권장과 CDC 접시법을 참고했습니다.",
+    ingredients: ["닭가슴살 120g", "깻잎 8장", "상추 5장", "오이 1/2개", "버섯 50g", "간장 1작은술(5ml)", "식초 1작은술(5ml)", "다진 마늘 1/3작은술"],
+    steps: ["닭가슴살을 삶거나 기름 없이 굽습니다.", "깻잎, 상추, 오이를 씻어 준비합니다.", "간장과 식초를 섞어 아주 조금만 찍습니다.", "밥 대신 쌈채소로 싸서 드세요."],
+    tags: ["닭가슴살", "깻잎", "상추", "주메뉴", "안심"]
+  },
+  {
+    title: "계란 채소찜",
+    category: "반찬/간식",
+    status: "safe",
+    image: "assets/recipes/vegetable-steamed-egg.png",
+    why: "부드럽고 먹기 쉬운 단백질 반찬입니다. 간식처럼 먹기에도 부담이 적습니다.",
+    source: "당뇨 식사요법의 어육류군 단백질 반찬 원칙을 반영했습니다.",
+    ingredients: ["계란 2개", "물 150ml", "애호박 2큰술(20g)", "버섯 2큰술(20g)", "다진 파 1큰술", "소금 한 꼬집 또는 간장 1/2작은술(2.5ml)"],
+    steps: ["계란 2개와 물 150ml를 잘 섞습니다.", "잘게 썬 애호박, 버섯, 파를 넣습니다.", "약한 불에서 8-10분 찌거나 전자레인지로 익힙니다.", "간은 아주 약하게 합니다."],
+    tags: ["계란", "채소", "간식", "반찬", "안심"]
+  },
+  {
+    title: "구운 만두 조절 접시",
+    category: "간식/주의",
+    status: "caution",
+    image: "assets/recipes/grilled-dumpling-plate.png",
+    why: "만두피가 밀가루라 탄수화물입니다. 먹는다면 2-3개만, 채소와 두부를 같이 둡니다.",
+    source: "탄수화물 중복을 피하는 당뇨 식사 원칙을 적용했습니다.",
+    ingredients: ["작은 만두 2-3개", "상추 5장", "오이 1/2개", "두부 1/4모(75g)", "버섯 50g", "식용유 1/2작은술(2.5ml)", "간장 1작은술(5ml)", "식초 1작은술(5ml)"],
+    steps: ["만두는 기름을 거의 쓰지 않고 굽습니다.", "한 번에 2-3개만 접시에 담습니다.", "상추, 오이, 두부, 버섯을 많이 곁들입니다.", "밥, 라면, 떡볶이와 같이 먹지 않습니다."],
+    tags: ["만두", "간식", "주의", "채소"]
   }
 ];
 
@@ -80,6 +124,8 @@ const eatingOut = [
   { category: "면/분식류", name: "양지 쌀국수", status: "caution", note: "주의. 양지는 괜찮지만 쌀국수 면은 탄수화물입니다. 면 반, 숙주 많이, 소스 따로." },
   { category: "면/분식류", name: "칼국수", status: "caution", note: "주의. 면 절반만. 밥, 전, 만두를 같이 먹지 않기." },
   { category: "면/분식류", name: "메밀국수", status: "caution", note: "주의. 메밀도 면입니다. 1/2인분, 달달한 장국/소스 적게." },
+  { category: "면/분식류", name: "당면 국물요리", status: "caution", note: "주의. 당면은 전분 면입니다. 육수에 삶아도 탄수화물은 그대로라 1/3-1/2인분만." },
+  { category: "면/분식류", name: "군만두", status: "caution", note: "주의. 만두피가 탄수화물이고 구우면 기름도 늘어납니다. 2-3개만, 채소와 함께." },
   { category: "면/분식류", name: "라면", status: "danger", note: "위험. 면과 국물 나트륨 부담이 큽니다." },
   { category: "면/분식류", name: "떡볶이", status: "danger", note: "위험. 떡과 설탕 양념이 혈당 부담이 큽니다." },
   { category: "면/분식류", name: "분식 세트", status: "danger", note: "위험. 떡볶이, 튀김, 김밥 조합은 탄수화물이 겹칩니다." }
@@ -125,6 +171,8 @@ const ingredients = [
   { category: "과일/견과", name: "바나나", status: "caution", note: "주의. 당이 빨리 오를 수 있어 1/2개 정도." },
   { category: "과일/견과", name: "포도", status: "caution", note: "주의. 한 번에 많이 먹기 쉽습니다. 소량만." },
   { category: "과일/견과", name: "땅콩", status: "caution", note: "주의. 무가당으로 한 줌보다 적게. 많이 먹으면 열량이 큽니다." },
+  { category: "과일/견과", name: "볶은 땅콩", status: "caution", note: "주의. 무가당/무염이면 조금 가능. 한 줌보다 적게, 소금 땅콩은 피하기." },
+  { category: "과일/견과", name: "삶은 땅콩", status: "caution", note: "주의. 볶은 것보다 부드럽지만 양은 작게. 소금물에 삶은 것은 나트륨 주의." },
   { category: "과일/견과", name: "아몬드", status: "caution", note: "주의. 무가당 10알 정도. 많이 먹으면 열량이 큽니다." },
   { category: "과일/견과", name: "호두", status: "caution", note: "주의. 2-3알 정도. 달달한 견과 믹스는 피하기." },
 
@@ -134,8 +182,28 @@ const ingredients = [
   { category: "밥/면/전분", name: "감자", status: "caution", note: "주의. 수제비나 밥과 같이 먹으면 탄수화물이 겹칩니다." },
   { category: "밥/면/전분", name: "메밀면", status: "caution", note: "주의. 밀가루면보다 나아도 면입니다. 1/2인분만." },
   { category: "밥/면/전분", name: "쌀국수면", status: "caution", note: "주의. 쌀로 만든 면이라 탄수화물입니다. 반만." },
+  { category: "밥/면/전분", name: "당면", status: "caution", note: "주의. 고구마/감자 전분으로 만든 면입니다. 칼국수 육수에 넣어도 탄수화물은 줄지 않습니다. 1/3-1/2인분만." },
   { category: "밥/면/전분", name: "두부면", status: "safe", note: "안심. 칼국수나 비빔면 대체로 좋습니다. 제품 성분표 확인." },
   { category: "밥/면/전분", name: "곤약면", status: "safe", note: "안심에 가깝습니다. 잘 헹구고, 소화가 불편하면 줄이기." },
+  { category: "밥/면/전분", name: "저당 시리얼", status: "caution", note: "주의. 저당이어도 곡물 탄수화물이 있습니다. 1회 제공량과 총탄수화물을 보고, 우유도 무가당으로." },
+
+  { category: "음료", name: "물", status: "safe", note: "안심. 가장 좋은 음료입니다." },
+  { category: "음료", name: "탄산수", status: "safe", note: "안심. 무가당/무향 또는 당 없는 제품이면 좋습니다." },
+  { category: "음료", name: "옥수수수염차", status: "safe", note: "안심에 가깝습니다. 무가당 제품만. 단맛 나는 병음료는 성분표 확인." },
+  { category: "음료", name: "제로 콜라", status: "caution", note: "주의. 설탕은 없지만 단맛 습관과 카페인 때문에 물 대신 자주 마시지는 마세요." },
+  { category: "음료", name: "무가당 차", status: "safe", note: "안심. 보리차, 녹차, 둥굴레차 등 설탕 없는 차." },
+
+  { category: "장아찌/양념", name: "깻잎", status: "safe", note: "안심. 생깻잎은 쌈으로 좋습니다." },
+  { category: "장아찌/양념", name: "깻잎 장아찌", status: "caution", note: "주의. 깻잎은 좋지만 장아찌는 짜고 단 양념이 있을 수 있습니다. 1-2장만." },
+  { category: "장아찌/양념", name: "마늘 장아찌", status: "caution", note: "주의. 간장/설탕/식초 절임이라 짜고 달 수 있습니다. 1-2쪽만." },
+  { category: "장아찌/양념", name: "마늘쫑 장아찌", status: "caution", note: "주의. 나트륨과 당 양념 주의. 조금만 반찬으로." },
+  { category: "장아찌/양념", name: "고추 장아찌", status: "caution", note: "주의. 짠 장아찌라 조금만. 매운맛 때문에 밥을 더 먹게 되면 더 주의." },
+  { category: "장아찌/양념", name: "간장", status: "caution", note: "주의. 찍어 먹어도 되지만 1작은술(5ml) 정도만. 나트륨이 많습니다." },
+  { category: "장아찌/양념", name: "초간장", status: "caution", note: "주의. 간장 1작은술+식초 1작은술처럼 묽게. 설탕은 넣지 않기." },
+
+  { category: "간식/가공식품", name: "구운 만두", status: "caution", note: "주의. 만두피가 탄수화물이고 기름도 들어갑니다. 2-3개만, 채소와 같이." },
+  { category: "간식/가공식품", name: "찐만두", status: "caution", note: "주의. 군만두보다 낫지만 만두피는 탄수화물입니다. 2-3개만." },
+  { category: "간식/가공식품", name: "물만두", status: "caution", note: "주의. 국물에 들어가도 만두피 탄수화물은 그대로입니다. 양 조절." },
 
   { category: "위험 식품", name: "설탕", status: "danger", note: "위험. 위험. 넣지 마세요." },
   { category: "위험 식품", name: "믹스커피", status: "danger", note: "위험. 설탕이 들어갑니다. 무가당 커피나 차로." },
@@ -150,6 +218,7 @@ const noodleTips = [
   { category: "안심 대체", name: "애호박 채소면", status: "safe", note: "애호박을 길게 썰어 면처럼 사용. 칼국수에 섞기 좋음." },
   { category: "주의 대체", name: "메밀면", status: "caution", note: "면이므로 1/2인분만. 달달한 양념장 금지." },
   { category: "주의 대체", name: "쌀국수면", status: "caution", note: "쌀 면도 탄수화물입니다. 양지 쌀국수는 면 반, 숙주 많이." },
+  { category: "주의 대체", name: "당면", status: "caution", note: "전분 면입니다. 육수에 삶아도 혈당 부담은 줄지 않아 1/3-1/2인분만." },
   { category: "주의 대체", name: "일반 칼국수면", status: "caution", note: "먹는다면 1/2인분. 밥과 전을 같이 먹지 않기." }
 ];
 
@@ -257,6 +326,10 @@ function render() {
         <button type="button" data-query="땅콩">땅콩</button>
         <button type="button" data-query="방울토마토">방울토마토</button>
         <button type="button" data-query="딸기">딸기</button>
+        <button type="button" data-query="당면">당면</button>
+        <button type="button" data-query="제로 콜라">제로 콜라</button>
+        <button type="button" data-query="장아찌">장아찌</button>
+        <button type="button" data-query="만두">만두</button>
         <button type="button" data-query="">전체 재료</button>
       </div>
     `;
