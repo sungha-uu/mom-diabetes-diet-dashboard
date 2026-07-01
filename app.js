@@ -443,8 +443,7 @@ function renderSearchBar() {
   const inputId = `search-${currentView}`;
   return `
     <section class="search-panel" aria-label="${viewTitles[currentView]} 검색">
-      <label class="search-label" for="${inputId}">검색</label>
-      <input id="${inputId}" class="search-input" type="search" value="${escapeAttr(state.query)}" placeholder="음식 이름 검색">
+      <input id="${inputId}" class="search-input" type="search" value="${escapeAttr(state.query)}" placeholder="검색" aria-label="검색">
       <output class="search-count" aria-live="polite">0개</output>
       <button class="search-next" type="button" disabled>다음</button>
     </section>
