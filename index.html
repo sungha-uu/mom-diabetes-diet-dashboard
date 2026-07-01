@@ -4,63 +4,97 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>어머니 당뇨 식단 대시보드</title>
-    <meta name="description" content="좋아하는 한국 음식을 더 건강하게 바꿔 먹기 위한 보호자용 당뇨 식단 검색 대시보드">
+    <meta name="description" content="어른이 스마트폰에서 크게 보는 당뇨 식단과 건강 레시피 안내">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <header>
-      <div class="wrap hero">
-        <p class="kicker">P09 식단 안내 대시보드</p>
-        <h1>좋아하는 음식을 조금 더 안전한 한 끼로 바꾸기</h1>
-        <p class="lead">칼국수, 수제비, 김치전, 부추전처럼 실제로 드시고 싶어 하는 음식을 중심으로 분량, 조합, 조리법을 쉽게 찾아보는 보호자용 안내입니다.</p>
-        <div class="notice">
-          <strong>범위</strong>
-          <span>이 페이지는 인슐린 투여량, 운동량, 혈당 추세를 관리하는 의료 대시보드가 아닙니다. 약물 조정과 치료 결정은 반드시 의료진과 상의해야 합니다.</span>
-        </div>
+    <header class="hero">
+      <img class="hero-img" src="assets/healthy-korean-table.png" alt="채소, 두부, 작은 밥, 국이 차려진 건강한 한식 상차림">
+      <div class="hero-overlay">
+        <p class="kicker">어머니 식단 안내</p>
+        <h1>드시고 싶은 음식, 더 건강하게 바꿔드리기</h1>
+        <p>복잡한 기록 없이 음식 이름만 눌러 보세요. 안심, 주의, 위험을 큰 글씨와 색으로 알려드립니다.</p>
       </div>
     </header>
 
-    <main class="wrap">
-      <section class="toolbar" aria-label="음식 검색">
-        <input id="search" class="search" type="search" placeholder="음식명 검색: 칼국수, 수제비, 김치전, 두부부침..." autocomplete="off">
-        <div class="chips" aria-label="분류 필터">
-          <button type="button" data-filter="all" aria-pressed="true">전체</button>
-          <button type="button" data-filter="good" aria-pressed="false">자주 가능</button>
-          <button type="button" data-filter="limit" aria-pressed="false">조절해서 먹기</button>
-          <button type="button" data-filter="avoid" aria-pressed="false">가급적 피함</button>
+    <main>
+      <section class="quick-status" aria-label="음식 상태 설명">
+        <div class="status-tile safe">
+          <strong>안심</strong>
+          <span>두부, 채소, 생선처럼 자주 쓰기 좋은 음식</span>
+        </div>
+        <div class="status-tile caution">
+          <strong>주의</strong>
+          <span>면, 전, 밥처럼 양을 줄여야 하는 음식</span>
+        </div>
+        <div class="status-tile danger">
+          <strong>위험</strong>
+          <span>설탕, 주스, 달달한 커피. 먹으면 안 됩니다</span>
         </div>
       </section>
 
-      <div class="layout">
-        <section>
-          <h2 class="section-title">음식별 안내</h2>
-          <div id="food-list" class="grid" aria-live="polite"></div>
-        </section>
+      <section class="search-zone" aria-label="음식 검색">
+        <label for="search">무엇이 드시고 싶으세요?</label>
+        <input id="search" type="search" placeholder="예: 칼국수, 수제비, 김치전, 두부, 설탕..." autocomplete="off">
+        <div class="menu-buttons" aria-label="빠른 메뉴">
+          <button type="button" data-filter="all" aria-pressed="true">전체</button>
+          <button type="button" data-filter="safe" aria-pressed="false">안심</button>
+          <button type="button" data-filter="caution" aria-pressed="false">주의</button>
+          <button type="button" data-filter="danger" aria-pressed="false">위험</button>
+          <button type="button" data-filter="favorite" aria-pressed="false">좋아하는 음식</button>
+          <button type="button" data-filter="noodle" aria-pressed="false">면 대체</button>
+        </div>
+      </section>
 
-        <aside class="panel">
-          <div class="panel-grid">
-            <section>
-              <h2>한 끼 원칙</h2>
-              <div class="rule">접시의 절반은 비전분 채소, 1/4은 단백질, 1/4은 밥/면/전 같은 탄수화물 음식으로 생각합니다.</div>
-            </section>
-            <section>
-              <h2>좋아하는 음식 조정법</h2>
-              <ul>
-                <li>면, 밥, 전, 떡을 한 끼에 겹치지 않습니다.</li>
-                <li>밀가루 반죽은 얇게, 채소와 단백질은 많이 넣습니다.</li>
-                <li>국물은 적게 먹고 간은 싱겁게 맞춥니다.</li>
-                <li>설탕 음료와 주스는 평소 음료에서 제외합니다.</li>
-              </ul>
-            </section>
-            <section>
-              <h2>주의</h2>
-              <p>식사량을 갑자기 줄이거나 활동량이 달라지면 인슐린 사용자는 저혈당 위험이 생길 수 있습니다. 저혈당 대응 기준은 주치의에게 확인해야 합니다.</p>
-            </section>
-          </div>
-          <p class="sources">근거: <a href="https://diabetes.org/food-nutrition/eating-healthy">ADA 식사 안내</a>, <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC Diabetes Meal Planning</a></p>
-        </aside>
-      </div>
+      <section class="big-rule">
+        <h2>오늘 이것만 기억하기</h2>
+        <div class="rule-grid">
+          <article>
+            <strong>1</strong>
+            <p>면, 밥, 전은 한 끼에 하나만 드세요.</p>
+          </article>
+          <article>
+            <strong>2</strong>
+            <p>채소와 두부를 먼저 드시고, 면과 밥은 나중에 조금만 드세요.</p>
+          </article>
+          <article class="danger-rule">
+            <strong>위험</strong>
+            <p>설탕 음료, 주스, 믹스커피는 드시면 안 됩니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>음식별 보기</h2>
+          <p id="result-count" aria-live="polite"></p>
+        </div>
+        <div id="food-list" class="food-list"></div>
+      </section>
+
+      <section class="shopping">
+        <h2>장볼 때 고르기</h2>
+        <div class="shopping-grid">
+          <article class="shopping-card safe">
+            <h3>사면 좋은 것</h3>
+            <p>두부, 계란, 생선, 닭고기, 버섯, 애호박, 양배추, 오이, 상추, 브로콜리, 무가당 차</p>
+          </article>
+          <article class="shopping-card caution">
+            <h3>조심해서 살 것</h3>
+            <p>칼국수면, 수제비 반죽, 부침가루, 잡곡밥, 메밀면. 양을 줄여 먹는 용도입니다.</p>
+          </article>
+          <article class="shopping-card danger">
+            <h3>사지 말 것</h3>
+            <p>설탕 음료, 과일주스, 믹스커피, 달달한 요구르트, 케이크, 과자, 떡, 약과</p>
+          </article>
+        </div>
+      </section>
     </main>
+
+    <footer>
+      <p>이 페이지는 음식 선택을 쉽게 돕는 안내입니다. 인슐린 양, 약 조정, 치료 결정은 병원에서 확인해야 합니다.</p>
+      <p>근거: <a href="https://diabetes.org/food-nutrition/eating-healthy">ADA 식사 안내</a>, <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC 식단 계획</a></p>
+    </footer>
 
     <script src="app.js"></script>
   </body>
