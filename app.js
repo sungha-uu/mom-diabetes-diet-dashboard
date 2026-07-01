@@ -223,20 +223,15 @@ const noodleTips = [
 ];
 
 const viewTitles = {
-  recipes: "집밥 레시피",
-  eatingOut: "외식 추천",
-  ingredients: "재료 검색",
-  noodles: "면 대신 고르기",
-  danger: "위험 음식"
+  recipes: "집밥",
+  eatingOut: "외식",
+  ingredients: "재료"
 };
 
 let currentView = "recipes";
-let query = "";
 
 const content = document.querySelector("#content");
-const search = document.querySelector("#search");
 const buttons = document.querySelectorAll("[data-view]");
-const searchBox = document.querySelector("#searchBox");
 
 function statusLabel(status) {
   return status === "safe" ? "안심" : status === "danger" ? "위험" : "주의";
@@ -246,9 +241,8 @@ function cardStatus(item) {
   return `<span class="badge ${item.status}">${statusLabel(item.status)}</span>`;
 }
 
-function includesQuery(item) {
-  const text = JSON.stringify(item).toLowerCase();
-  return !query || text.includes(query.toLowerCase());
+function cleanNote(note) {
+  return note.replace(/^(안심에 가깝습니다\.|안심\.|주의\.|위험\. 위험\.|위험\.)\s*/, "");
 }
 
 function groupByCategory(items) {
@@ -298,13 +292,12 @@ function simpleCard(item) {
     <article class="simple-card ${item.status}">
       <div class="card-tags">${cardStatus(item)}<span class="category-pill">${item.category}</span></div>
       <h2>${item.name}</h2>
-      <p>${item.note}</p>
+      <p>${cleanNote(item.note)}</p>
     </article>
   `;
 }
 
 function render() {
-  searchBox.hidden = currentView === "recipes" || currentView === "danger" || currentView === "noodles";
   let html = `<div class="section-title"><h2>${viewTitles[currentView]}</h2></div>`;
 
   if (currentView === "recipes") {
@@ -312,68 +305,22 @@ function render() {
   }
 
   if (currentView === "eatingOut") {
-    const items = eatingOut.filter(includesQuery);
-    html += renderGrouped(items, simpleCard);
+    html += renderGrouped(eatingOut, simpleCard);
   }
 
   if (currentView === "ingredients") {
-    const items = ingredients.filter(includesQuery);
-    html += `
-      <div class="quick-picks" aria-label="빠른 재료 검색">
-        <button type="button" data-query="닭가슴살">닭가슴살</button>
-        <button type="button" data-query="닭다리살">닭다리살</button>
-        <button type="button" data-query="고등어">고등어</button>
-        <button type="button" data-query="땅콩">땅콩</button>
-        <button type="button" data-query="방울토마토">방울토마토</button>
-        <button type="button" data-query="딸기">딸기</button>
-        <button type="button" data-query="당면">당면</button>
-        <button type="button" data-query="제로 콜라">제로 콜라</button>
-        <button type="button" data-query="장아찌">장아찌</button>
-        <button type="button" data-query="만두">만두</button>
-        <button type="button" data-query="">전체 재료</button>
-      </div>
-    `;
-    html += items.length ? renderGrouped(items, simpleCard) : emptyText();
-  }
-
-  if (currentView === "noodles") {
-    html += `<p class="guide">칼국수나 쌀국수가 먹고 싶을 때는 밀가루/쌀 면을 줄이고 아래 순서로 고르세요.</p>`;
-    html += renderGrouped(noodleTips, simpleCard);
-  }
-
-  if (currentView === "danger") {
-    const dangerItems = [...eatingOut, ...ingredients].filter(item => item.status === "danger");
-    html += renderGrouped(dangerItems, simpleCard);
+    html += renderGrouped(ingredients, simpleCard);
   }
 
   content.innerHTML = html;
 }
 
-function emptyText() {
-  return `<article class="simple-card caution"><span class="badge caution">주의</span><h2>검색 결과 없음</h2><p>다른 이름으로 검색해 보세요. 예: 토마토, 땅콩, 닭가슴살, 고등어</p></article>`;
-}
-
 buttons.forEach(button => {
   button.addEventListener("click", () => {
     currentView = button.dataset.view;
-    query = "";
-    search.value = "";
     buttons.forEach(x => x.setAttribute("aria-pressed", String(x === button)));
     render();
   });
-});
-
-search.addEventListener("input", event => {
-  query = event.target.value;
-  render();
-});
-
-content.addEventListener("click", event => {
-  const button = event.target.closest("[data-query]");
-  if (!button) return;
-  query = button.dataset.query;
-  search.value = query;
-  render();
 });
 
 render();

@@ -4,30 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>어머니 당뇨 식단</title>
-    <meta name="description" content="큰 글씨로 보는 당뇨 외식 추천, 사진 레시피, 재료 검색">
+    <meta name="description" content="큰 글씨로 보는 건강한 당뇨 식단: 집밥, 외식, 재료">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="topbar">
       <div class="title-row">
-        <h1>뭐 드실까요?</h1>
-        <p>안심 · 주의 · 위험</p>
+        <h1>건강한 당뇨 식단</h1>
       </div>
       <nav class="tabs" aria-label="메뉴">
-        <button type="button" data-view="recipes" aria-pressed="true">집밥 레시피</button>
-        <button type="button" data-view="eatingOut" aria-pressed="false">외식 추천</button>
-        <button type="button" data-view="ingredients" aria-pressed="false">재료 검색</button>
-        <button type="button" data-view="noodles" aria-pressed="false">면 대체</button>
-        <button type="button" data-view="danger" aria-pressed="false">위험 음식</button>
+        <button type="button" data-view="recipes" aria-pressed="true">집밥</button>
+        <button type="button" data-view="eatingOut" aria-pressed="false">외식</button>
+        <button type="button" data-view="ingredients" aria-pressed="false">재료</button>
       </nav>
     </header>
 
     <main>
-      <section class="search-box" id="searchBox">
-        <label for="search">음식이나 재료 검색</label>
-        <input id="search" type="search" placeholder="예: 땅콩, 방울토마토, 딸기, 칼국수..." autocomplete="off">
-      </section>
-
       <section id="content" aria-live="polite"></section>
     </main>
 
