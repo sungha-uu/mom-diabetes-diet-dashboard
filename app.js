@@ -322,6 +322,105 @@ const ingredients = [
   { category: "위험 식품", name: "과자/케이크", status: "danger", note: "위험. 설탕과 밀가루가 많습니다." }
 ];
 
+const expandedIngredients = ingredients.concat([
+  { category: "채소/버섯/해조류", name: "시금치", status: "safe", note: "비전분 채소입니다. 데쳐서 나물로 먹되 간장과 참기름은 아주 조금만 사용하세요." },
+  { category: "채소/버섯/해조류", name: "청경채", status: "safe", note: "국, 볶음, 샤브샤브에 넣기 좋습니다. 기름보다 물볶음으로 익히면 가볍습니다." },
+  { category: "채소/버섯/해조류", name: "숙주", status: "safe", note: "쌀국수나 샤브샤브에 많이 넣으면 면 양을 줄이기 쉽습니다. 소스는 따로 조금만." },
+  { category: "채소/버섯/해조류", name: "콩나물", status: "safe", note: "국이나 무침으로 좋습니다. 콩나물밥은 밥 양이 늘 수 있어 주의하세요." },
+  { category: "채소/버섯/해조류", name: "무", status: "safe", note: "국, 생채, 쌈무로 좋습니다. 단맛 나는 절임이나 설탕 넣은 무생채는 주의하세요." },
+  { category: "채소/버섯/해조류", name: "당근", status: "caution", note: "채소지만 단맛이 있어 많이 갈아 마시는 것은 피하세요. 반찬으로 조금은 괜찮습니다." },
+  { category: "채소/버섯/해조류", name: "양파", status: "caution", note: "조금 넣어 단맛을 내는 정도는 괜찮습니다. 양파즙처럼 농축해서 마시는 것은 주의하세요." },
+  { category: "채소/버섯/해조류", name: "대파/쪽파", status: "safe", note: "국, 계란찜, 두부 요리에 향을 더해 간장을 덜 쓰게 도와줍니다." },
+  { category: "채소/버섯/해조류", name: "마늘", status: "safe", note: "소량 양념으로 좋습니다. 마늘장아찌나 마늘청은 나트륨/당이 들어갈 수 있어 주의하세요." },
+  { category: "채소/버섯/해조류", name: "김", status: "safe", note: "조미김보다 구운 김을 권장합니다. 밥을 많이 싸 먹게 되면 밥 양을 먼저 정하세요." },
+  { category: "채소/버섯/해조류", name: "미역", status: "safe", note: "미역국에 두부나 생선을 넣으면 든든합니다. 국물은 짜지 않게 조절하세요." },
+  { category: "채소/버섯/해조류", name: "다시마", status: "safe", note: "육수로 쓰기 좋습니다. 다시마쌈은 초장 대신 식초간장 조금만 찍으세요." },
+  { category: "채소/버섯/해조류", name: "우엉", status: "caution", note: "식이섬유가 있지만 조림은 설탕/물엿이 많이 들어갑니다. 볶음이나 데침으로 조금만." },
+  { category: "채소/버섯/해조류", name: "연근", status: "caution", note: "전분이 있는 뿌리채소입니다. 연근조림은 달 수 있어 양념을 줄이고 소량만 드세요." },
+  { category: "채소/버섯/해조류", name: "단호박", status: "caution", note: "채소처럼 보여도 탄수화물이 많습니다. 밥 대신 작은 조각만 먹고 밥과 같이 많이 먹지 마세요." },
+  { category: "채소/버섯/해조류", name: "옥수수", status: "caution", note: "간식처럼 먹어도 탄수화물입니다. 1/2개 이하로 정하고 밥/면과 같은 끼니에 겹치지 않게 하세요." },
+
+  { category: "고기/생선/단백질", name: "닭고기 전체", status: "safe", note: "껍질과 튀김옷을 빼면 좋은 단백질입니다. 가슴살/안심은 안심, 다리살은 껍질 제거 후 주의입니다." },
+  { category: "고기/생선/단백질", name: "오리고기", status: "caution", note: "단백질이지만 지방이 많습니다. 껍질과 기름을 빼고 쌈채소와 조금만 드세요." },
+  { category: "고기/생선/단백질", name: "돼지 앞다리살", status: "safe", note: "비계가 적은 부위는 수육이나 구이로 괜찮습니다. 쌈장과 밥은 줄이세요." },
+  { category: "고기/생선/단백질", name: "돼지 목살", status: "caution", note: "삼겹살보다 나을 수 있지만 지방이 있습니다. 밥/냉면 없이 쌈채소를 많이 드세요." },
+  { category: "고기/생선/단백질", name: "소고기 사태", status: "safe", note: "국이나 수육으로 좋습니다. 기름을 걷어내고 면/밥을 같이 많이 먹지 마세요." },
+  { category: "고기/생선/단백질", name: "소고기 등심", status: "caution", note: "맛은 좋지만 지방이 있을 수 있습니다. 양을 작게 하고 달달한 소스는 피하세요." },
+  { category: "고기/생선/단백질", name: "흰살생선", status: "safe", note: "대구, 명태, 가자미처럼 담백한 생선은 구이/찜/맑은탕으로 좋습니다." },
+  { category: "고기/생선/단백질", name: "조개/홍합", status: "safe", note: "국물 맛을 내기 좋습니다. 국물은 짜지 않게 하고 칼국수 사리는 줄이세요." },
+  { category: "고기/생선/단백질", name: "굴", status: "safe", note: "단백질 식품입니다. 생식보다 익혀 먹는 것이 안전하고, 초장은 아주 조금만 사용하세요." },
+  { category: "고기/생선/단백질", name: "검은콩/서리태", status: "caution", note: "단백질과 탄수화물이 함께 있습니다. 콩자반은 달 수 있으니 무가당으로 조금만." },
+  { category: "고기/생선/단백질", name: "낫토", status: "caution", note: "단백질 식품이지만 소스가 달 수 있습니다. 소스는 절반만 넣고 밥 양을 줄이세요." },
+  { category: "고기/생선/단백질", name: "무가당 두유", status: "safe", note: "출출할 때 100-190ml 정도는 괜찮습니다. 꼭 무가당인지 확인하세요." },
+  { category: "고기/생선/단백질", name: "저지방 우유", status: "caution", note: "우유에도 유당이 있어 탄수화물이 있습니다. 한 컵 이하로 정하고 달달한 우유는 피하세요." },
+  { category: "고기/생선/단백질", name: "무가당 그릭요거트", status: "safe", note: "간식으로 좋습니다. 딸기 4-5개나 아몬드 5알 정도만 올리고 꿀/시럽은 넣지 마세요." },
+  { category: "고기/생선/단백질", name: "치즈", status: "caution", note: "탄수화물은 적지만 나트륨과 지방이 많을 수 있습니다. 한 장 또는 작은 조각으로 제한하세요." },
+
+  { category: "밥/곡물/전분", name: "현미밥", status: "caution", note: "흰밥보다 나아도 탄수화물입니다. 반 공기부터, 채소와 단백질을 먼저 드세요." },
+  { category: "밥/곡물/전분", name: "보리밥", status: "caution", note: "식이섬유가 있지만 밥입니다. 반 공기 이하로 정하고 국물에 말아 먹지 마세요." },
+  { category: "밥/곡물/전분", name: "귀리/오트밀", status: "caution", note: "무가당 소량은 가능하지만 탄수화물입니다. 우유/과일/꿀을 많이 넣으면 부담이 커집니다." },
+  { category: "밥/곡물/전분", name: "콩밥", status: "caution", note: "콩은 좋지만 밥 양은 그대로 탄수화물입니다. 반 공기 기준으로 드세요." },
+  { category: "밥/곡물/전분", name: "누룽지", status: "caution", note: "가볍게 보여도 쌀입니다. 물에 끓여도 탄수화물은 줄지 않습니다." },
+  { category: "밥/곡물/전분", name: "수제비", status: "caution", note: "밀가루 반죽이라 칼국수와 비슷합니다. 먹는다면 반 그릇, 채소와 단백질을 많이 넣으세요." },
+  { category: "밥/곡물/전분", name: "라이스페이퍼", status: "caution", note: "얇아 보여도 쌀 전분입니다. 월남쌈은 2-3장 정도로 정하고 소스는 적게." },
+  { category: "밥/곡물/전분", name: "식빵", status: "caution", note: "밀가루 탄수화물입니다. 먹는다면 1장, 잼/꿀/달달한 크림은 피하세요." },
+  { category: "밥/곡물/전분", name: "통밀빵", status: "caution", note: "흰빵보다 나을 수 있어도 빵입니다. 1장 정도, 계란/채소와 같이 드세요." },
+  { category: "밥/곡물/전분", name: "미숫가루/선식", status: "danger", note: "위험. 건강식처럼 보여도 곡물가루라 빨리 마시면 혈당이 오를 수 있습니다. 설탕/꿀을 넣으면 더 위험합니다." },
+
+  { category: "과일", name: "블루베리", status: "caution", note: "과일은 당이 있습니다. 작은 한 줌 정도만, 요거트와 함께 먹고 주스는 피하세요." },
+  { category: "과일", name: "귤", status: "caution", note: "작은 것 1개 정도로 정하세요. 여러 개를 계속 먹기 쉬워 주의가 필요합니다." },
+  { category: "과일", name: "배", status: "caution", note: "수분이 많지만 당이 있습니다. 1/4개 정도로 작게 드세요." },
+  { category: "과일", name: "복숭아", status: "caution", note: "작은 것 1/2개 정도로 제한하세요. 통조림 복숭아는 시럽 때문에 피하세요." },
+  { category: "과일", name: "수박", status: "caution", note: "시원해서 많이 먹기 쉽습니다. 작은 조각 몇 개로 제한하고 한 번에 많이 먹지 마세요." },
+  { category: "과일", name: "참외", status: "caution", note: "달고 많이 먹기 쉽습니다. 1/2개 이하로 정하세요." },
+  { category: "과일", name: "감", status: "caution", note: "당이 높은 편입니다. 작은 것 1/2개 이하로, 말린 감은 피하세요." },
+  { category: "과일", name: "말린 과일", status: "danger", note: "위험. 작게 보여도 당이 농축되어 있습니다. 건포도, 말린망고, 곶감은 피하는 편이 좋습니다." },
+  { category: "과일", name: "과일청", status: "danger", note: "위험. 과일보다 설탕물이 핵심입니다. 차로 타 마셔도 당 섭취가 큽니다." },
+
+  { category: "음료/가공식품", name: "아메리카노", status: "safe", note: "설탕/시럽 없이 마시면 괜찮습니다. 카페인에 예민하면 오후에는 줄이세요." },
+  { category: "음료/가공식품", name: "라떼", status: "caution", note: "우유가 들어가 탄수화물이 있습니다. 시럽은 빼고 작은 사이즈로 드세요." },
+  { category: "음료/가공식품", name: "요구르트 음료", status: "danger", note: "위험. 작은 병이라도 당이 많을 수 있습니다. 무가당 요거트와 다릅니다." },
+  { category: "음료/가공식품", name: "이온음료", status: "danger", note: "위험. 일반 제품은 당이 들어갑니다. 저혈당 응급상황이 아니면 물을 드세요." },
+  { category: "음료/가공식품", name: "막걸리", status: "danger", note: "위험. 탄수화물과 알코올이 함께 있습니다. 혈당 변동과 저혈당 위험이 모두 생길 수 있습니다." },
+  { category: "음료/가공식품", name: "맥주", status: "caution", note: "알코올과 탄수화물이 있습니다. 약/인슐린 사용자는 저혈당 위험 때문에 병원 지침을 우선하세요." },
+  { category: "음료/가공식품", name: "소주/위스키", status: "caution", note: "탄수화물은 적어도 알코올은 저혈당 위험을 높일 수 있습니다. 공복 음주는 피해야 합니다." },
+  { category: "음료/가공식품", name: "무설탕 사탕", status: "caution", note: "평소 간식으로 과식하면 설사나 단맛 습관 문제가 생길 수 있습니다. 저혈당 응급용으로는 일반 사탕이 필요합니다." },
+  { category: "음료/가공식품", name: "단백질바", status: "caution", note: "제품마다 당과 탄수화물이 크게 다릅니다. 총탄수화물과 당류를 보고 반 개부터 드세요." },
+  { category: "음료/가공식품", name: "제로 음료", status: "caution", note: "당은 없지만 물 대체로 계속 마시지는 마세요. 카페인과 단맛 습관을 주의합니다." },
+
+  { category: "민간요법/건강식품", name: "돼지감자", status: "caution", note: "식이섬유 이눌린이 있어 식품으로 소량 먹을 수는 있지만 당뇨 치료제는 아닙니다. 돼지감자즙/분말을 약처럼 먹는 것은 병원에 확인하세요." },
+  { category: "민간요법/건강식품", name: "돼지감자차", status: "caution", note: "무가당으로 연하게 마시는 정도는 가능할 수 있지만 혈당을 낮추는 치료 효과로 믿으면 안 됩니다." },
+  { category: "민간요법/건강식품", name: "여주", status: "caution", note: "혈당 관련 연구가 있지만 근거가 충분하지 않고 제품마다 농도가 다릅니다. 인슐린 사용자는 저혈당 위험 때문에 병원에 확인하세요." },
+  { category: "민간요법/건강식품", name: "여주즙/여주환", status: "danger", note: "위험. 농축 제품은 효과와 부작용을 예측하기 어렵습니다. 인슐린/당뇨약과 같이 임의로 먹지 마세요." },
+  { category: "민간요법/건강식품", name: "양파즙", status: "danger", note: "위험. 건강식처럼 보여도 즙은 빠르게 마시는 농축 식품입니다. 식품으로 양파를 조금 먹는 것과 다릅니다." },
+  { category: "민간요법/건강식품", name: "배즙/사과즙", status: "danger", note: "위험. 과일즙은 액상 당입니다. 과일 자체를 정량으로 먹는 것보다 혈당이 빨리 오를 수 있습니다." },
+  { category: "민간요법/건강식품", name: "ABC주스/해독주스", status: "danger", note: "위험. 갈아 마시면 과일과 뿌리채소 당을 빠르게 먹게 됩니다. 식사 대체나 당뇨 개선 목적으로 권하지 않습니다." },
+  { category: "민간요법/건강식품", name: "홍삼", status: "caution", note: "제품마다 당류와 성분이 다릅니다. 당뇨약/혈압약을 먹는 경우 병원에 확인하고, 달달한 농축액은 피하세요." },
+  { category: "민간요법/건강식품", name: "계피", status: "caution", note: "혈당에 좋다는 말이 많지만 치료제로 볼 근거는 부족합니다. 보충제 고용량은 간/약물 문제를 주의하세요." },
+  { category: "민간요법/건강식품", name: "알로에/노니", status: "danger", note: "위험. 혈당, 간, 신장, 약물 상호작용 문제가 보고될 수 있습니다. 당뇨 개선 목적으로 임의 복용하지 마세요." },
+  { category: "민간요법/건강식품", name: "환/분말/농축액", status: "danger", note: "위험. 음식보다 농도가 높고 성분을 예측하기 어렵습니다. 약처럼 매일 먹는 것은 병원 확인 전에는 피하세요." },
+  { category: "민간요법/건강식품", name: "진한 차/달인 물", status: "caution", note: "무가당이어도 특정 재료를 진하게 달여 매일 마시는 것은 보충제처럼 작용할 수 있습니다. 물처럼 마시지 마세요." },
+  { category: "민간요법/건강식품", name: "꿀", status: "danger", note: "위험. 천연이어도 당입니다. 저혈당 응급용 1큰술 외에는 당뇨 관리용으로 쓰지 마세요." },
+  { category: "민간요법/건강식품", name: "매실청", status: "danger", note: "위험. 청은 설탕에 절인 액입니다. 물에 타도 당 섭취가 큽니다." }
+]);
+
+const infoItems = [
+  { category: "가장 중요", name: "특정 음식은 치료제가 아닙니다", status: "danger", note: "돼지감자, 여주, 계피, 홍삼 같은 식품이 당뇨를 치료하거나 인슐린을 대신한다는 충분한 근거는 없습니다. 약이나 인슐린 조정은 병원에서만 해야 합니다." },
+  { category: "가장 중요", name: "당화혈색소 11%대는 음식 정보만으로는 부족", status: "danger", note: "식단은 중요하지만 이 정도 수치는 치료 조정, 저혈당 대처, 복약/인슐린 확인이 같이 필요합니다. 이 앱은 음식 선택 보조용입니다." },
+  { category: "피해야 할 형태", name: "즙, 농축액, 환, 분말", status: "danger", note: "음식보다 성분이 농축되어 있고 제품마다 함량이 다릅니다. 혈당을 낮춘다는 광고만 보고 매일 먹는 것은 위험합니다." },
+  { category: "피해야 할 형태", name: "과일즙, 양파즙, 배즙, ABC주스", status: "danger", note: "액체로 마시면 빠르게 흡수됩니다. 건강주스처럼 보여도 당 섭취가 커질 수 있습니다." },
+  { category: "피해야 할 형태", name: "청, 꿀, 조청, 매실청", status: "danger", note: "천연이라는 말과 무관하게 당입니다. 차에 조금 넣는 것도 반복되면 혈당 부담이 큽니다." },
+  { category: "주의할 형태", name: "진하게 달인 물", status: "caution", note: "무가당 차와 달리 특정 재료를 진하게 달여 매일 마시면 보충제처럼 작용할 수 있습니다. 약과 겹칠 수 있어 확인이 필요합니다." },
+  { category: "민간요법", name: "돼지감자", status: "caution", note: "식이섬유가 있는 식품으로 볼 수는 있지만, 당 수치를 치료 수준으로 낮춘다고 믿으면 안 됩니다. 분말/즙 형태는 특히 주의하세요." },
+  { category: "민간요법", name: "여주", status: "caution", note: "혈당 관련 연구는 있으나 표준 치료로 권할 만큼 충분하지 않습니다. 인슐린 사용자에게는 저혈당 위험이 문제가 될 수 있습니다." },
+  { category: "민간요법", name: "계피, 홍삼, 크롬 보충제", status: "caution", note: "일부 연구가 있어도 효과가 일관되지 않거나 안전성 문제가 있습니다. 보충제는 주치의에게 확인한 뒤 결정하세요." },
+  { category: "식사 원칙", name: "채소 먼저, 단백질 함께, 탄수화물은 정량", status: "safe", note: "비전분 채소와 단백질을 먼저 먹고 밥/면/떡/빵은 양을 정하는 방식이 가장 실용적입니다." },
+  { category: "식사 원칙", name: "갈아 마시지 않기", status: "danger", note: "과일이나 채소를 갈면 빨리 마시게 되고 양이 늘어납니다. 가능하면 씹어 먹고 양을 눈으로 확인하세요." },
+  { category: "식사 원칙", name: "성분표에서 볼 것", status: "safe", note: "총탄수화물, 당류, 1회 제공량을 먼저 봅니다. 저당, 무가당, 제로라는 문구만 보고 결정하지 마세요." },
+  { category: "인슐린 사용자", name: "저혈당 대비는 따로 준비", status: "danger", note: "평소에는 당을 줄이지만 저혈당 때는 빠른 당질이 필요합니다. 포도당정, 일반 사탕, 주스 120ml 등을 따로 준비하세요." },
+  { category: "병원에 물어볼 것", name: "새 건강식품을 시작할 때", status: "caution", note: "당뇨약, 인슐린, 혈압약, 신장 기능 문제가 있으면 건강식품도 영향을 줄 수 있습니다. 시작 전 병원에 확인하세요." }
+];
+
 const noodleTips = [
   { category: "안심 대체", name: "두부면", status: "safe", note: "마트 냉장 코너. 헹군 뒤 칼국수 국물에 마지막에 넣기." },
   { category: "안심 대체", name: "곤약면", status: "safe", note: "물에 여러 번 헹구고 1분 데치기. 씹기 편한지 확인." },
@@ -336,7 +435,8 @@ const viewTitles = {
   recipes: "집밥",
   eatingOut: "외식",
   ingredients: "재료",
-  hypo: "저혈당"
+  hypo: "저혈당",
+  info: "정보"
 };
 
 let currentView = "recipes";
@@ -350,7 +450,8 @@ const scrollPositions = {
   recipes: 0,
   eatingOut: 0,
   ingredients: 0,
-  hypo: 0
+  hypo: 0,
+  info: 0
 };
 let isRestoringScroll = false;
 
@@ -573,7 +674,7 @@ function render() {
   }
 
   if (currentView === "ingredients") {
-    html += renderGrouped(ingredients, simpleCard);
+    html += renderGrouped(expandedIngredients, simpleCard);
   }
 
   if (currentView === "hypo") {
@@ -592,6 +693,17 @@ function render() {
     html += renderGrouped(hypoFoods, simpleCard);
     html += renderGrouped(hypoItems, simpleCard);
     html += `<p class="source">근거: ADA Low Blood Glucose, CDC/NIDDK 저혈당 15-15 원칙.</p>`;
+  }
+
+  if (currentView === "info") {
+    html += `
+      <section class="hypo-summary caution">
+        <h2>음식 정보는 치료제가 아닙니다</h2>
+        <p>당뇨에 좋다는 식품도 약이나 인슐린을 대신할 수 없습니다. 즙, 농축액, 환, 분말은 특히 주의합니다.</p>
+      </section>
+    `;
+    html += renderGrouped(infoItems, simpleCard);
+    html += `<p class="source">근거: ADA 보충제 안내, NCCIH 당뇨와 보충제, NIDDK 당뇨 관리 원칙, 식품영양성분 DB의 영양성분 체계.</p>`;
   }
 
   content.innerHTML = html;
