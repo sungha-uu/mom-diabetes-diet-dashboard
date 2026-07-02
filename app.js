@@ -546,6 +546,58 @@ function renderGrouped(items, renderer) {
   `).join("");
 }
 
+const koreanInitials = [
+  { key: "ㄱ", test: code => code >= 0 && code <= 1 },
+  { key: "ㄴ", test: code => code === 2 },
+  { key: "ㄷ", test: code => code >= 3 && code <= 4 },
+  { key: "ㄹ", test: code => code === 5 },
+  { key: "ㅁ", test: code => code === 6 },
+  { key: "ㅂ", test: code => code >= 7 && code <= 8 },
+  { key: "ㅅ", test: code => code >= 9 && code <= 10 },
+  { key: "ㅇ", test: code => code === 11 },
+  { key: "ㅈ", test: code => code >= 12 && code <= 14 },
+  { key: "ㅊ", test: code => code === 15 },
+  { key: "ㅋ", test: code => code === 16 },
+  { key: "ㅌ", test: code => code === 17 },
+  { key: "ㅍ", test: code => code === 18 },
+  { key: "ㅎ", test: code => code === 19 }
+];
+
+function getInitialKey(name) {
+  const first = String(name || "").trim().charAt(0);
+  if (!first) return "기타";
+  const code = first.charCodeAt(0) - 0xac00;
+  if (code < 0 || code > 11171) return "기타";
+  const initialCode = Math.floor(code / 588);
+  return koreanInitials.find(initial => initial.test(initialCode))?.key || "기타";
+}
+
+function sortByKoreanName(items) {
+  return [...items].sort((a, b) => a.name.localeCompare(b.name, "ko-KR", { numeric: true }));
+}
+
+function renderIngredientsList(items) {
+  const sorted = sortByKoreanName(items).map(item => ({ ...item, initial: getInitialKey(item.name) }));
+  const initials = [...new Set(sorted.map(item => item.initial))];
+  const order = koreanInitials.map(initial => initial.key).concat("기타");
+  const visibleInitials = order.filter(initial => initials.includes(initial));
+
+  return `
+    <div class="ingredient-layout">
+      <div class="simple-list ingredient-list">
+        ${sorted.map((item, index, allItems) => {
+          const showMarker = index === 0 || item.initial !== allItems[index - 1].initial;
+          const marker = showMarker ? `<span class="initial-marker" data-initial-marker="${item.initial}">${item.initial}</span>` : "";
+          return simpleCard(item, { initial: item.initial, marker });
+        }).join("")}
+      </div>
+      <nav class="initial-nav" aria-label="재료 초성 바로가기">
+        ${visibleInitials.map(initial => `<button type="button" data-initial-target="${initial}">${initial}</button>`).join("")}
+      </nav>
+    </div>
+  `;
+}
+
 function recipeCard(recipe) {
   return `
     <article class="recipe-card ${recipe.status}" data-search="${escapeAttr(normalizeSearchText(recipeSearchText(recipe)))}" tabindex="-1">
@@ -567,9 +619,10 @@ function recipeCard(recipe) {
   `;
 }
 
-function simpleCard(item) {
+function simpleCard(item, options = {}) {
   return `
-    <article class="simple-card ${item.status}" data-search="${escapeAttr(normalizeSearchText(simpleSearchText(item)))}" tabindex="-1">
+    <article class="simple-card ${item.status}" data-search="${escapeAttr(normalizeSearchText(simpleSearchText(item)))}" data-initial="${options.initial || ""}" tabindex="-1">
+      ${options.marker || ""}
       <div class="card-tags">${cardStatus(item)}<span class="category-pill">${item.category}</span></div>
       <h2>${item.name}</h2>
       <p>${cleanNote(item.note)}</p>
@@ -687,7 +740,7 @@ function render() {
   }
 
   if (currentView === "ingredients") {
-    html += renderGrouped(expandedIngredients, simpleCard);
+    html += renderIngredientsList(expandedIngredients);
   }
 
   if (currentView === "hypo") {
@@ -721,6 +774,7 @@ function render() {
 
   content.innerHTML = html;
   attachSearchHandlers();
+  attachInitialNavHandlers();
   updateStickyOffset();
 }
 
@@ -796,6 +850,23 @@ function attachSearchHandlers() {
 
   next.addEventListener("click", () => updateSearchMatches(true));
   updateSearchMatches(false);
+}
+
+function attachInitialNavHandlers() {
+  if (currentView !== "ingredients") return;
+
+  content.querySelectorAll("[data-initial-target]").forEach(button => {
+    button.addEventListener("click", () => {
+      const initial = button.dataset.initialTarget;
+      const target = content.querySelector(`[data-initial="${initial}"]`);
+      if (!target) return;
+
+      content.querySelectorAll(".initial-active").forEach(card => card.classList.remove("initial-active"));
+      target.classList.add("initial-active");
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
 }
 
 function restoreCurrentScroll() {
